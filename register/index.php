@@ -295,7 +295,6 @@
 									<div id="form-submit">
 										<p>Dengan menekan tombol 'Submit' anda menyatakan bahwa data yang tertulis di atas adalah benar adanya.</p>
 										<input type="submit" value="submit!">
-										<input type="submit" formnovalidate value="debug!">
 									</div>
 								</div>
 							</form>
