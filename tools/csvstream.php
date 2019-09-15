@@ -70,8 +70,8 @@ function createCSVWithHeader($headerType) {
 	$file->addSheet($worksheetRanking1, 2);
 	$file->addSheet($worksheetTalkshow, 3);
 	
-	$writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($file);
-	$writer->save('../datanggocahKSK/pendaftar.xlsx');
+	$writer = new \PhpOffice\PhpSpreadsheet\Writer\Xls($file);
+	$writer->save('../datanggocahKSK/pendaftar.xls');
 
 	return $file;
 }
