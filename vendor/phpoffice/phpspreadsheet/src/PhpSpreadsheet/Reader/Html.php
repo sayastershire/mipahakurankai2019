@@ -595,7 +595,8 @@ class Html extends BaseReader
         // Create a new DOM object
         $dom = new DOMDocument();
         // Reload the HTML file into the DOM object
-        $loaded = $dom->loadHTML(mb_convert_encoding($this->securityScanner->scanFile($pFilename), 'HTML-ENTITIES', 'UTF-8'));
+        //$loaded = $dom->loadHTML(mb_convert_encoding($this->securityScanner->scanFile($pFilename), 'HTML-ENTITIES', 'UTF-8'));
+        $loaded = $dom->loadHTML(htmlspecialchars_decode(utf8_decode(htmlentities($this->securityScanner->scanFile($pFilename), ENT_COMPAT, 'utf-8', false))));
         if ($loaded === false) {
             throw new Exception('Failed to load ' . $pFilename . ' as a DOM Document');
         }
@@ -612,7 +613,7 @@ class Html extends BaseReader
      *
      * @return Spreadsheet
      */
-    public function loadFromString($content): Spreadsheet
+    public function loadFromString($content)//: Spreadsheet
     {
         //    Create a new DOM object
         $dom = new DOMDocument();
@@ -635,7 +636,7 @@ class Html extends BaseReader
      *
      * @return Spreadsheet
      */
-    private function loadDocument(DOMDocument $document, Spreadsheet $spreadsheet): Spreadsheet
+    private function loadDocument(DOMDocument $document, Spreadsheet $spreadsheet)//: Spreadsheet
     {
         while ($spreadsheet->getSheetCount() <= $this->sheetIndex) {
             $spreadsheet->createSheet();
@@ -956,8 +957,8 @@ class Html extends BaseReader
      */
     private function setBorderStyle(Style $cellStyle, $styleValue, $type)
     {
+        //[, $borderStyle, $color] = explode(' ', $styleValue);
         [, $borderStyle, $color] = explode(' ', $styleValue);
-
         $cellStyle->applyFromArray([
             'borders' => [
                 $type => [

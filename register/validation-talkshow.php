@@ -7,15 +7,15 @@ require '../tools/csvstream.php';
 include '../tools/debug.php';
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xls;
+use PhpOffice\PhpSpreadsheet\Writer\Html;
 
 // Variables
-$DATABASE_LOCATION = $_SERVER["DOCUMENT_ROOT"]."/datanggocahKSK/pendaftar.xls";
+$DATABASE_LOCATION = $_SERVER["DOCUMENT_ROOT"]."/datanggocahKSK/pendaftar.html";
 $_POST["nomorHP"] = '"'.$_POST["nomorHP"].'"'; // Stringify phone numbers
 
 //$DATABASE_FILE = new XLSXWriter();
 $DATABASE_FILE = new Spreadsheet();     // functions as spreadsheet
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader("Xls");
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader("Html");
 $reader -> setReadDataOnly(TRUE);
 
 if (!file_exists($DATABASE_LOCATION)) createCSVWithHeader('Talkshow');
@@ -27,7 +27,7 @@ $highestColumn = $worksheet->getHighestColumn();
 
 $worksheet->fromArray($_POST, NULL, 'A'.++$highestRow);
 
-$writer = new Xls($DATABASE_FILE);
+$writer = new Html($DATABASE_FILE);
 $writer->save($DATABASE_LOCATION);
 
 echo("Data succesfully recorded. Now redirecting to success page!");
