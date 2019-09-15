@@ -7,7 +7,7 @@ require '../tools/csvstream.php';
 include '../tools/debug.php';
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 // Variables
 $DATABASE_LOCATION = $_SERVER["DOCUMENT_ROOT"]."/datanggocahKSK/pendaftar.xls";
