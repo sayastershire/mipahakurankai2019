@@ -10,12 +10,12 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 // Variables
-$DATABASE_LOCATION = $_SERVER["DOCUMENT_ROOT"]."/datanggocahKSK/pendaftar.xlsx";
+$DATABASE_LOCATION = $_SERVER["DOCUMENT_ROOT"]."/datanggocahKSK/pendaftar.xls";
 $_POST["nomorHP"] = '"'.$_POST["nomorHP"].'"'; // Stringify phone numbers
 
 //$DATABASE_FILE = new XLSXWriter();
 $DATABASE_FILE = new Spreadsheet();     // functions as spreadsheet
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader("Xlsx");
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader("Xls");
 $reader -> setReadDataOnly(TRUE);
 
 if (!file_exists($DATABASE_LOCATION)) createCSVWithHeader('Talkshow');
@@ -27,7 +27,7 @@ $highestColumn = $worksheet->getHighestColumn();
 
 $worksheet->fromArray($_POST, NULL, 'A'.++$highestRow);
 
-$writer = new Xlsx($DATABASE_FILE);
+$writer = new Xls($DATABASE_FILE);
 $writer->save($DATABASE_LOCATION);
 
 echo("Data succesfully recorded. Now redirecting to success page!");

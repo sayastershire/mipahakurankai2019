@@ -5,14 +5,14 @@ $isSuccess = true;
 $reason = "";
 
 $HOMEPAGE = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] . '/';
-$DATABASE_LOCATION = "../datanggocahKSK/pendaftar.xlsx";
+$DATABASE_LOCATION = "../datanggocahKSK/pendaftar.xls";
 $ALLOWED_IMAGE_EXTENSIONS = array("jpg", "jpeg", "png");
 
 require '../vendor/autoload.php';
 require '../tools/tools.php';
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 // Stringify phone numbers first-----------------
 $_POST["nomorHP"] = '"'.$_POST["nomorHP"].'"';
@@ -52,7 +52,7 @@ if ($isSuccess) {
 	
 	// Writing to Spreadsheet
 	$DATABASE_FILE = new Spreadsheet();     // functions as spreadsheet
-	$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader("Xlsx");
+	$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader("Xls");
 	$reader -> setReadDataOnly(TRUE);
 
 	if (!file_exists($DATABASE_LOCATION)) createCSVWithHeader('Ranking 1');
@@ -64,7 +64,7 @@ if ($isSuccess) {
 
 	$worksheet->fromArray($_POST, NULL, 'A'.++$highestRow);
 
-	$writer = new Xlsx($DATABASE_FILE);
+	$writer = new Xls($DATABASE_FILE);
 	$writer->save($DATABASE_LOCATION);
 
 	echo("Data succesfully recorded. Now redirecting to success page!");
